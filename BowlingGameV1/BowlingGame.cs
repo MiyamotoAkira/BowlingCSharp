@@ -1,7 +1,4 @@
-﻿
-using Microsoft.VisualBasic;
-
-namespace BowlingGameV1;
+﻿namespace BowlingGameV1;
 
 public class BowlingGame {
     IList<int> rolls;
