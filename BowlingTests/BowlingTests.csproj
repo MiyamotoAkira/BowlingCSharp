@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BowlingGameV1\BowlingGameV1.csproj" />
+    <ProjectReference Include="..\BowlingGameV2\BowlingGameV2.csproj" />
   </ItemGroup>
 
 </Project>
