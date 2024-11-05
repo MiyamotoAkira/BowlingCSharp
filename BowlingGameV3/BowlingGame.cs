@@ -7,7 +7,6 @@ public interface BowlingFrame
     int Score();
     bool IsCompleted();
     void AddSecondRoll(int pins);
-    bool IsStrike();
     void AddBonusRoll(int pins);
     void AddStrikeBonusRoll(int pins);
     bool IsSpare();
@@ -39,12 +38,7 @@ public class Frame : BowlingFrame
     {
         _secondRoll = pins;
     }
-
-    public bool IsStrike()
-    {
-        return false;
-    }
-
+    
     public void AddBonusRoll(int pins)
     {
         if (_bonusRoll.Count < 2) {
@@ -80,12 +74,7 @@ public class StrikeFrame : BowlingFrame
     {
         throw new NotImplementedException();
     }
-
-    public bool IsStrike()
-    {
-        return true;
-    }
-
+    
     public void AddBonusRoll(int pins)
     {
     }
