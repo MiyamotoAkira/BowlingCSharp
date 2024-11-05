@@ -141,18 +141,18 @@ public class BowlingGame
             _frames.Add(frame);
         }
 
-        if (_frames.Count - 1 > 0) {
+        if (_frames.Count >  1) {
             if (_frames[^2].IsSpare())
             {
                 _frames[^2].AddBonusRoll(pins);
             }
         }
 
-        if (_frames.Count - 1 > 0)
+        if (_frames.Count > 1)
         {
             _frames[^2].AddStrikeBonusRoll(pins);
         }
-        if (_frames.Count - 2 > 0)
+        if (_frames.Count > 2)
         {
             _frames[^3].AddStrikeBonusRoll(pins);
         }
