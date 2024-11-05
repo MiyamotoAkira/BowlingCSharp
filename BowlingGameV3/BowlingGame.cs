@@ -16,17 +16,16 @@ public class Frame : BowlingFrame
 {
     private readonly int _firstRoll;
     int? _secondRoll;
-    private readonly IList<int> _bonusRoll;
+    private int? _bonusRoll;
 
     public Frame(int firstRoll)
     {
         _firstRoll = firstRoll;
-        _bonusRoll = new List<int>();
     }
 
     public int Score()
     {
-        return _firstRoll + _secondRoll.GetValueOrDefault()+ _bonusRoll.Aggregate(0, (total, bonus) => total + bonus);
+        return _firstRoll + _secondRoll.GetValueOrDefault()+ _bonusRoll.GetValueOrDefault();
     }
 
     public bool IsCompleted()
@@ -41,9 +40,7 @@ public class Frame : BowlingFrame
     
     public void AddBonusRoll(int pins)
     {
-        if (_bonusRoll.Count < 2) {
-            _bonusRoll.Add(pins);
-        }
+            _bonusRoll =pins; 
     }
 
     public void AddStrikeBonusRoll(int pins)
