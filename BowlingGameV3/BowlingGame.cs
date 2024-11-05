@@ -1,4 +1,6 @@
-﻿namespace BowlingGameV3;
+﻿using System.ComponentModel.Design;
+
+namespace BowlingGameV3;
 
 public interface BowlingFrame
 {
@@ -7,6 +9,7 @@ public interface BowlingFrame
     void AddSecondRoll(int pins);
     bool IsStrike();
     void AddBonusRoll(int pins);
+    void AddStrikeBonusRoll(int pins);
     bool IsSpare();
 }
 
@@ -49,6 +52,10 @@ public class Frame : BowlingFrame
         }
     }
 
+    public void AddStrikeBonusRoll(int pins)
+    {
+    }
+
     public bool IsSpare()
     {
         return (_firstRoll+_secondRoll == 10);
@@ -81,6 +88,10 @@ public class StrikeFrame : BowlingFrame
 
     public void AddBonusRoll(int pins)
     {
+    }
+
+    public void AddStrikeBonusRoll(int pins)
+    {
         if (_bonusRoll.Count < 2) {
             _bonusRoll.Add(pins);
         }
@@ -107,11 +118,17 @@ public class BowlingGame
     }
     public void Roll(int pins)
     {
-        if (_frames.Count == 10 ) {
-            _frames.Last().AddBonusRoll(pins);
-            if (_frames[^2].IsStrike()) {
-                _frames[^2].AddBonusRoll(pins);
+        if (_frames.Count == 10 && _frames.Last().IsCompleted()) {
+            if (_frames.Last().IsSpare())
+            {
+                _frames.Last().AddBonusRoll(pins);
             }
+            else
+            {
+                _frames.Last().AddStrikeBonusRoll(pins);
+            }
+
+            _frames[^2].AddStrikeBonusRoll(pins);
             return;
         }
 
@@ -136,24 +153,19 @@ public class BowlingGame
         }
 
         if (_frames.Count - 1 > 0) {
-            if (_frames[^2].IsSpare() ) {
+            if (_frames[^2].IsSpare())
+            {
                 _frames[^2].AddBonusRoll(pins);
             }
         }
 
         if (_frames.Count - 1 > 0)
         {
-            if (_frames[^2].IsStrike())
-            {
-                _frames[^2].AddBonusRoll(pins);
-            }
+            _frames[^2].AddStrikeBonusRoll(pins);
         }
         if (_frames.Count - 2 > 0)
         {
-            if (_frames[^3].IsStrike())
-            {
-                _frames[^3].AddBonusRoll(pins);
-            }
+            _frames[^3].AddStrikeBonusRoll(pins);
         }
     }
 
